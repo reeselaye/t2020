@@ -11,10 +11,10 @@ from PIL import Image
 
 def image_detect(pic_path):
     return_elements = ["input/input_data:0", "pred_sbbox/concat_2:0", "pred_mbbox/concat_2:0", "pred_lbbox/concat_2:0"]
-    pb_file = "./yolov3_coco.pb"
+    pb_file = "./yolo.pb"
     image_path = pic_path
     # image_path = "/home/liqin/Pictures/60p52.png"
-    num_classes = 2
+    num_classes = 5
     input_size = 608
     graph = tf.Graph()
 

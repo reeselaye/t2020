@@ -6,7 +6,7 @@
 import tensorflow as tf
 from core.yolov3 import YOLOV3
 
-pb_file = "./yolov3_coco.pb"
+pb_file = "./yolo.pb"
 ckpt_file = "./checkpoint/yolov3_test_loss=55.7907.ckpt-99"
 # ckpt_file = "./checkpoint/yolov3_test_loss=58.9317.ckpt-98"
 output_node_names = ["input/input_data", "pred_sbbox/concat_2", "pred_mbbox/concat_2", "pred_lbbox/concat_2"]
