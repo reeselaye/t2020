@@ -48,7 +48,7 @@ def covt_box_matrix(bboxes):
             text_matrix.append(a)
             a=[]
     text_matrix.append(a)
-    print len(text_matrix)
+    print(len(text_matrix))
     return text_matrix
     # pass
 
@@ -62,7 +62,7 @@ def callback(i=0):
     # filepath = filedialog.askdirectory()
     cur = filedialog.askopenfilenames(
         filetypes=[('pic files', ('.jpg', '.png', '.jpeg')), ('pythonfiles', ('.py', '.pyw', '.*'))])
-    print cur[0]
+    print(cur[0])
     entry.delete(0, END)
     entry.insert(0, cur)
     listbox_filename.insert(i, ' ')
@@ -71,7 +71,7 @@ def callback(i=0):
     i += 1
     listbox_filename.insert(i, 'detected output: ')
     image, bboxes = image_demo.image_detect(str(cur[0]))
-    print len(bboxes)
+    print(len(bboxes))
     i = i + 1
     label = covt_box_matrix(bboxes)
     for k in range(len(label)):

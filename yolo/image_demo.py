@@ -60,11 +60,11 @@ def image_detect(pic_path):
 
     # print pred_bbox
     bboxes = utils.postprocess_boxes(pred_bbox, original_image_size, input_size, 0.4)
-    print len(bboxes)
+    print(len(bboxes))
     bboxes = utils.nms(bboxes, 0.6, method='nms')
     image, bboxes= utils.draw_bbox(original_image, bboxes)
     # image = Image.fromarray(image)
-    image = cv2.resize(image, (image.shape[0] / 5, image.shape[1] / 5))
+    image = cv2.resize(image, (int(image.shape[0] / 5), int(image.shape[1] / 5)))
     # cv2.imshow('aaa', image)
     #
     # k = cv2.waitKey(1000)
@@ -80,8 +80,10 @@ def conv_box_text(bboxes):
 def main():
     image_path = "/home/liqin/python/relaying/10P1.jpg"
     image, bboxes = image_detect(image_path)
-    print bboxes
+    print(bboxes)
     conv_box_text(bboxes)
+    cv2.imshow("output",image)
+    cv2.waitKey(5000)
 
 
 
