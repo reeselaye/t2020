@@ -1,6 +1,6 @@
 import tkinter as tk
 
-import image_demo
+import panel_detect
 
 def fun1():
     print ("yes")

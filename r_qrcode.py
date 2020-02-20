@@ -71,20 +71,22 @@ if __name__ == '__main__':
     #cv2.waitKey(5000)
     #print(r_decode(rname))
 
-# decode api
-# file_name 输入图片地址
-# return 返回解析后的字符串
 
+"""
+@API :r_decode(file)
+@:param file_name : 图片文件名
+@:return : 以字符串形式返回二维码解析结果
+
+"""
 def r_decode(file_name):
-    image_file = ""
-    if (len(sys.argv) > 1):
-        image_file = str(sys.argv[1])
-    else:
-        image_file = file_name
+
+    image_file = file_name
     img = cv2.imread(image_file)
     temp_name = "temp.jpg"
     cv2.imwrite(temp_name, img)
     zx = zxing.BarCodeReader()
-    data = zx.decode(rname)
-    os.remove(rname)
+    data = zx.decode(temp_name)
+    os.remove(temp_name)
+    if data ==None:
+        return None
     return data.raw

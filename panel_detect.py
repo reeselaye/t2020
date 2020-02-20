@@ -4,14 +4,14 @@
 
 import cv2
 import numpy as np
-import core.utils as utils
+import yolo.core.utils as utils
 import tensorflow as tf
 from PIL import Image
 
 
 def image_detect(pic_path):
     return_elements = ["input/input_data:0", "pred_sbbox/concat_2:0", "pred_mbbox/concat_2:0", "pred_lbbox/concat_2:0"]
-    pb_file = "./yolo.pb"
+    pb_file = "yolo/yolo.pb"
     image_path = pic_path
     # image_path = "/home/liqin/Pictures/60p52.png"
     num_classes = 5
@@ -60,7 +60,7 @@ def image_detect(pic_path):
 
     # print pred_bbox
     bboxes = utils.postprocess_boxes(pred_bbox, original_image_size, input_size, 0.4)
-    print(len(bboxes))
+    # print("detected ", len(bboxes), "object!!")
     bboxes = utils.nms(bboxes, 0.6, method='nms')
     image, bboxes= utils.draw_bbox(original_image, bboxes)
     # image = Image.fromarray(image)
@@ -74,18 +74,85 @@ def image_detect(pic_path):
     return image, bboxes   # break
 
 def conv_box_text(bboxes):
+    # bboxes
+    # [xmin,ymin,xmax,ymax]
+    # sort_box = sorted(bboxes, key = lambda x: x[1])
+    # text_matrix=[]
+    # lis=[]
+    box = bboxes
+    for idx, item1 in enumerate(bboxes):
+        #     # text_matrix.append([jj[0],int(jj[5])])
+        #     if idx==0:
+        #         a=item
+        #         b=[]
 
-    pass
+        if idx == 0: continue
+        for idx2, item2 in enumerate(bboxes):
+
+            if np.abs(item1[1] - item2[1]) < item2[3] - item2[1]:
+                box[idx2][1] = item1[1]
+
+            # else:
+            #     a = item
+            #     b.append(item)
+
+        # text_matrix.append(int(item[5]))
+        # if idx>1 and sort_box[idx][1] < sort_box[idx-1][1]+500:
+        #     lis.append(text_matrix)
+        #     text_matrix = []
+    sort_box = sorted(box, key=lambda x: (x[1], x[0]))
+
+    # sequence_box.append(jj[0])
+    a = []
+    text_matrix = []
+    for id, item in enumerate(sort_box):
+        if item[5] == 2:
+            a.append('light_red')
+        elif item[5] == 3:
+            a.append('light_off')
+        elif item[5] == 4:
+            a.append('light_green')
+        else:
+            a.append(int(item[5]))
+        if id < len(sort_box) - 1 and sort_box[id + 1][0] < item[0]:
+            text_matrix.append(a)
+            a = []
+    text_matrix.append(a)
+    # print("output : ", text_matrix)
+
+    # 开关状态text_matrix=[[0,1,0,1...],[0,1,...],[]]
+    return text_matrix, sort_box
+    # pass
+
+
+
+"""
+API:detected(image_path):
+@:param image_path:待识别图片路径
+@:returns :
+@ sorted_lable :排序后的标签输出 [[0,1,0,1,..],[0,1..],[]]
+@ sorted_box:  排序后方框输出 [x_min, y_min, x_max, y_max, possibel,class_id] [421.0, 452,2, 890.0, 870.0, 0.82, 1.0]
+"""
+def detected(image_path):
+    img, bboxes = image_detect(image_path)
+    sorted_label, sorted_box = conv_box_text(bboxes)
+    return sorted_label, sorted_box
+
 
 def main():
     image_path = "/home/liqin/python/relaying/10P1.jpg"
-    image, bboxes = image_detect(image_path)
-    print(bboxes)
-    conv_box_text(bboxes)
-    cv2.imshow("output",image)
-    cv2.waitKey(5000)
+    label_out, sorted_box = detected(image_path)
+    # image, bboxes = image_detect(image_path)
+    # print(bboxes)
+    # label_out, sorted_box = conv_box_text(bboxes)
+    print(label_out)
+    print(len(sorted_box),"++",sorted_box)
+    # cv2.imshow("output",image)
+    # cv2.waitKey(5000)
 
 
 
 if __name__ == '__main__':
     main()
+
+

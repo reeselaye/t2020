@@ -5,7 +5,7 @@ import tkinter.filedialog as filedialog
 from tkinter import *
 import os
 from tkinter import *
-import image_demo
+import panel_detect
 import cv2
 import numpy as np
 
@@ -43,12 +43,21 @@ def covt_box_matrix(bboxes):
     a = []
     text_matrix=[]
     for id, item in enumerate(sort_box):
-        a.append(int(item[5]))
+        if item[5]== 2:
+            a.append('light_red')
+        elif item[5]== 3:
+            a.append('light_off')
+        elif item[5]== 4:
+            a.append('light_green')
+        else:
+            a.append(int(item[5]))
         if id<len(sort_box)-1 and sort_box[id+1][0]<item[0]:
             text_matrix.append(a)
             a=[]
     text_matrix.append(a)
-    print(len(text_matrix))
+    print("output : ",text_matrix)
+
+    # 开关状态text_matrix=[[0,1,0,1...],[0,1,...],[]]
     return text_matrix
     # pass
 
@@ -70,7 +79,7 @@ def callback(i=0):
     listbox_filename.insert(i, 'filename: ' + cur[0])
     i += 1
     listbox_filename.insert(i, 'detected output: ')
-    image, bboxes = image_demo.image_detect(str(cur[0]))
+    image, bboxes = panel_detect.image_detect(str(cur[0]))
     print(len(bboxes))
     i = i + 1
     label = covt_box_matrix(bboxes)

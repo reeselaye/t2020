@@ -35,7 +35,7 @@ class GaussianBlend(Blend):
             self.mask = mask
 
     def blend(self):
-        print("Calculating pyramid")
+        # print("Calculating pyramid")
         la1 = self.get_laplacian_pyramid(self.image1)
         la2 = self.get_laplacian_pyramid(self.image2)
 
@@ -49,7 +49,7 @@ class GaussianBlend(Blend):
 
             result += (next(la1) * mask + next(la2) * (1.0 - mask)).astype(int)
             del mask
-            print(i, " level blended")
+            # print(i, " level blended")
         return np.clip(result, 0, 255).astype('uint8')
         
         # print("Rebuilding ")

@@ -14,9 +14,9 @@ import random
 import cv2
 import numpy as np
 
-import k_means
-import ransac
-import blend
+import joint.k_means as k_means
+import joint.ransac as ransac
+import joint.blend as blend
 
 
 def show_image(image: np.ndarray) -> None:
@@ -119,9 +119,9 @@ class Matcher():
             if self.match_points[i].distance > max_distance:
                 match_len = i
                 break
-        print('max distance: ', self.match_points[match_len].distance)
-        print("Min distance: ", self.match_points[0].distance)
-        print('match_len: ', match_len)
+        # print('max distance: ', self.match_points[match_len].distance)
+        # print("Min distance: ", self.match_points[0].distance)
+        # print('match_len: ', match_len)
         assert(match_len >= 4)
         self.match_points = self.match_points[:match_len]
 
@@ -196,14 +196,14 @@ class Stitcher:
                 self.image_points1, self.image_points2, method=cv2.RANSAC)
             # self.M = ransac.Ransac(self.image_points1, self.image_points2).run()
 
-        print("Good points and average distance: ", ransac.GeneticTransform.get_value(
-            self.image_points1, self.image_points2, self.M))
+        # print("Good points and average distance: ", ransac.GeneticTransform.get_value(
+        #    self.image_points1, self.image_points2, self.M))
 
         left, right, top, bottom = self.get_transformed_size()
         # print(self.get_transformed_size())
         width = int(max(right, self.image2.shape[1]) - min(left, 0))
         height = int(max(bottom, self.image2.shape[0]) - min(top, 0))
-        print(width, height)
+        # print(width, height)
         # width, height = min(width, 10000), min(height, 10000)
         if width * height > 8000 * 5000:
             # raise MemoryError("Too large to get the combination")
@@ -296,8 +296,8 @@ class Stitcher:
         min_part = (ne, se, sw, nw)[minmum]
 
         # debug:
-        print("minum part: ", minmum, "point len: ", len(
-            min_part), "|", list(map(len, (ne, se, sw, nw))))
+        # print("minum part: ", minmum, "point len: ", len(
+        #     min_part), "|", list(map(len, (ne, se, sw, nw))))
         for index in min_part:
             point = self.image_points1[index]
             cv2.circle(self.image1, tuple(
@@ -309,7 +309,7 @@ class Stitcher:
         if len(min_part) < len(self.image_points1) / 8:
             for index in min_part:
                 point = self.image_points1[index].tolist()
-                print("Point: ", point)
+                # print("Point: ", point)
                 # maybe can try other value?
                 if distance(self.get_transformed_position(tuple(point)),
                             self.image_points2[index]) > 10:
@@ -377,7 +377,7 @@ class Stitcher:
         """
 
         mask = self.generate_mask(image1, image2)
-        print("Blending")
+        # print("Blending")
         if use_gauss_blend:
             result = blend.gaussian_blend(image1, image2, mask, mask_blend=10)
         else:
@@ -394,7 +394,7 @@ class Stitcher:
         Returns:
             np.ndarray: 01数组
         """
-        print("Generating mask")
+        # print("Generating mask")
         # x, y
         center1 = self.image1.shape[1] / 2, self.image1.shape[0] / 2
         center1 = self.get_transformed_position(center1)
@@ -546,5 +546,5 @@ if __name__ == "__main__":
 
     # cv2.imwrite('../resource/19-sift-gf.jpg', stitcher.image)
 
-    print("Time: ", time.time() - start_time)
-    print("M: ", stitcher.M)
+    # print("Time: ", time.time() - start_time)
+    # print("M: ", stitcher.M)

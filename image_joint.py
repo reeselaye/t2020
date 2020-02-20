@@ -4,7 +4,7 @@ import sys
 
 import cv2
 
-from stitch import Stitcher, Method
+from joint.stitch import Stitcher, Method
 
 # os.chdir(os.path.dirname(__file__))
 # os.chdir(os.getcwd())
@@ -40,30 +40,7 @@ def show_help():
     exit(1)
 
 
-"""
-
-"""
-
-def stich_image_api(path_list):
-
-    images = read_image_list(path_list)
-
-    pre_image = []
-    pano_image = []
-    for index, image in enumerate(images):
-        if index ==0:
-            pre_image = image
-            continue
-        s = Stitcher(pre_image, image, Method.ORB, False)
-        s.stich()
-        pano_image = s.image
-        pre_image = pano_image
-    save_path = "../example/pano.jpg"
-    cv2.imwrite(save_path, pano_image)
-
-
-
-def main():
+def command_api():
     if (len(sys.argv) < 2):
         show_help()
 
@@ -82,12 +59,47 @@ def main():
         s.stich()
         pano_image = s.image
         pre_image = pano_image
-    save_path = "../image_pano/test.jpg"
-    cv2.imwrite(save_path, pano_image)
-    print("saved" ,save_path)
+    save_path = os.getcwd() + "/img/"
+    if not (os.path.exists(save_path)):
+        os.mkdir(save_path)
+    cv2.imwrite(save_path+"pano.jpg", pano_image)
+    return save_path + "pano.jpg"
 
+"""
+@ API stich_image_api(path_list)
+@ ：输入的图片文件个数需大于2及以上 
+@:param: path_list like ["../img_pano/q1.jpg", "../img_pano/q2.jpg", "../img_pano/q3.jpg"]
+@:return 拼接后图片保存位置
+"""
+
+def stich_image_api(path_list,save_path):
+
+    images = read_image_list(path_list)
+
+    pre_image = []
+    pano_image = []
+    for index, image in enumerate(images):
+        if index ==0:
+            pre_image = image
+            continue
+        s = Stitcher(pre_image, image, Method.ORB, False)
+        s.stich()
+        pano_image = s.image
+        pre_image = pano_image
+    # save_path = os.getcwd() + "/img_pano/"
+    if not (os.path.exists(os.path.dirname(save_path))):
+        os.mkdir(os.path.dirname(save_path))
+    cv2.imwrite(save_path, pano_image)
+    return save_path
+
+
+
+def main():
+    img_path = command_api()
+    # img_path = stich_image_api(["../img_pano/q1.jpg", "../img_pano/q2.jpg", "../img_pano/q3.jpg"])
+    print("joint image was saved : ", img_path)
 
 if __name__ == "__main__":
-    # stich_image_api(["../example/m1.jpg", "../example/m2.jpg" , "../example/m3.jpg"])
+
     main()
 
