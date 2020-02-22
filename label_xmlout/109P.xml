@@ -1,7 +1,7 @@
 <annotation>
-	<folder>panel</folder>
+	<folder>panel_image</folder>
 	<filename>109P.jpg</filename>
-	<path>/home/liqin/python/panel_image/panel/109P.jpg</path>
+	<path>/home/liqin/python/panel_image/109P.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -17,10 +17,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2520</xmin>
-			<ymin>858</ymin>
-			<xmax>2720</xmax>
-			<ymax>1012</ymax>
+			<xmin>2550</xmin>
+			<ymin>873</ymin>
+			<xmax>2688</xmax>
+			<ymax>992</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -29,10 +29,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2534</xmin>
-			<ymin>1258</ymin>
-			<xmax>2716</xmax>
-			<ymax>1458</ymax>
+			<xmin>2335</xmin>
+			<ymin>896</ymin>
+			<xmax>2458</xmax>
+			<ymax>1004</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -41,10 +41,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2293</xmin>
-			<ymin>1272</ymin>
-			<xmax>2484</xmax>
-			<ymax>1458</ymax>
+			<xmin>2329</xmin>
+			<ymin>1323</ymin>
+			<xmax>2456</xmax>
+			<ymax>1435</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -53,10 +53,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2266</xmin>
-			<ymin>826</ymin>
-			<xmax>2470</xmax>
-			<ymax>1045</ymax>
+			<xmin>2563</xmin>
+			<ymin>1296</ymin>
+			<xmax>2692</xmax>
+			<ymax>1433</ymax>
 		</bndbox>
 	</object>
 </annotation>

@@ -12,15 +12,15 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>light_red</name>
+		<name>light_off</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
 			<xmin>2634</xmin>
-			<ymin>1881</ymin>
-			<xmax>2766</xmax>
-			<ymax>2013</ymax>
+			<ymin>1238</ymin>
+			<xmax>2797</xmax>
+			<ymax>1372</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -29,10 +29,22 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>3606</xmin>
-			<ymin>1940</ymin>
-			<xmax>3779</xmax>
-			<ymax>2108</ymax>
+			<xmin>2616</xmin>
+			<ymin>1872</ymin>
+			<xmax>2759</xmax>
+			<ymax>2022</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>light_red</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>3634</xmin>
+			<ymin>1969</ymin>
+			<xmax>3769</xmax>
+			<ymax>2109</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -41,22 +53,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>2629</xmin>
-			<ymin>1249</ymin>
-			<xmax>2793</xmax>
-			<ymax>1390</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>light_off</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>3647</xmin>
-			<ymin>1231</ymin>
-			<xmax>3847</xmax>
-			<ymax>1440</ymax>
+			<xmin>3669</xmin>
+			<ymin>1256</ymin>
+			<xmax>3844</xmax>
+			<ymax>1422</ymax>
 		</bndbox>
 	</object>
 </annotation>

@@ -29,6 +29,9 @@ for tmp_file in xml_list:
     root = ET.parse('num/' + tmp_file).getroot()
     img_path = root.find('path').text
     new_f.write(img_path + " ")
+    size = root.find('size')
+    width = size.find('width').text
+    height = size.find('height').text
     for obj in root.findall('object'):
         obj_name = obj.find('name').text
         bndbox = obj.find('bndbox')
@@ -36,15 +39,27 @@ for tmp_file in xml_list:
         top = bndbox.find('ymin').text
         right = bndbox.find('xmax').text
         bottom = bndbox.find('ymax').text
+        if int(right)>int(width) or int(bottom)>int(height):
+            print ("eaaa!!")
+            continue
+        if int(right)<0 or int(bottom)<0:
+            print ("err!!")
+            continue
+            # print("over!!!")
+            # print (img_path)
+            # print (obj_name)
+
         if obj_name == 'light_red':
             obj_name = '2'
         elif obj_name == 'light_off':
-            obj_name = '3'
+            obj_name = '2'
         elif obj_name == 'light_green':
-            obj_name = '4'
+            obj_name = '2'
         elif obj_name =='0':
             pass
         elif obj_name =='1':
+            pass
+        elif obj_name == '2':
             pass
         else:
             continue

@@ -7,7 +7,7 @@ import numpy as np
 import yolo.core.utils as utils
 import tensorflow as tf
 from PIL import Image
-
+import light
 
 def image_detect(pic_path):
     return_elements = ["input/input_data:0", "pred_sbbox/concat_2:0", "pred_mbbox/concat_2:0", "pred_lbbox/concat_2:0"]
@@ -64,7 +64,7 @@ def image_detect(pic_path):
     bboxes = utils.nms(bboxes, 0.6, method='nms')
     image, bboxes= utils.draw_bbox(original_image, bboxes)
     # image = Image.fromarray(image)
-    image = cv2.resize(image, (int(image.shape[0] / 5), int(image.shape[1] / 5)))
+    # image = cv2.resize(image, (int(image.shape[0] / 5), int(image.shape[1] / 5)))
     # cv2.imshow('aaa', image)
     #
     # k = cv2.waitKey(1000)
@@ -106,14 +106,14 @@ def conv_box_text(bboxes):
     a = []
     text_matrix = []
     for id, item in enumerate(sort_box):
-        if item[5] == 2:
-            a.append('light_red')
-        elif item[5] == 3:
-            a.append('light_off')
-        elif item[5] == 4:
-            a.append('light_green')
-        else:
-            a.append(int(item[5]))
+        # if item[5] == 2:
+        #     a.append('light_red')
+        # elif item[5] == 3:
+        #     a.append('light_off')
+        # elif item[5] == 4:
+        #     a.append('light_green')
+        # else:
+        a.append(int(item[5]))
         if id < len(sort_box) - 1 and sort_box[id + 1][0] < item[0]:
             text_matrix.append(a)
             a = []
@@ -135,16 +135,22 @@ API:detected(image_path):
 """
 def detected(image_path):
     img, bboxes = image_detect(image_path)
+    for i, bbox in enumerate(bboxes):
+        if bbox[5] ==2 or bbox[5]== '2':
+            light_status = light.detected_light(img, bbox)
+            bboxes[i][5] = light_status
     sorted_label, sorted_box = conv_box_text(bboxes)
     return sorted_label, sorted_box
 
 
 def main():
     image_path = "/home/liqin/python/relaying/10P1.jpg"
+    img = cv2.imread(image_path)
+    # light.detected_light(img,[3942,455,4329,842])
     label_out, sorted_box = detected(image_path)
-    # image, bboxes = image_detect(image_path)
-    # print(bboxes)
-    # label_out, sorted_box = conv_box_text(bboxes)
+    image, bboxes = image_detect(image_path)
+    print(bboxes)
+    label_out, sorted_box = conv_box_text(bboxes)
     print(label_out)
     print(len(sorted_box),"++",sorted_box)
     # cv2.imshow("output",image)
