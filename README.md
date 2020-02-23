@@ -2,6 +2,7 @@
 ==
 
 #requiement
+
     python3.6
     pip3 install -r requirements.txt
 
@@ -30,9 +31,11 @@
     
     
 #test
+
     python3 run_api.py
 
 #文件夹
+
     *.xml 标签文件
     *.pb  网络参数文件
     joint/ 拼接
