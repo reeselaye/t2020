@@ -19,14 +19,14 @@ import xml.etree.ElementTree as ET
 #   print("Error: no .xml files found in ground-truth")
 #   sys.exit()
 
-xml_list = os.listdir('num/')
+xml_list = os.listdir('backup/')
 for tmp_file in xml_list:
     # print(tmp_file)
     # 1. create new file (VOC format)
     # with open('../ground-truth/' + tmp_file, "r") as of:
     new_f = open('train.txt', 'a')
 
-    root = ET.parse('num/' + tmp_file).getroot()
+    root = ET.parse('backup/' + tmp_file).getroot()
     img_path = root.find('path').text
     new_f.write(img_path + " ")
     size = root.find('size')
