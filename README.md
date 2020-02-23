@@ -5,7 +5,8 @@
     python3.6
     pip3 install -r requirements.txt
 
-#API详见.py文件  
+#API详见.py文件
+    
     二维码识别
     @ ： 文件r_qrcode.py
     @API :r_decode(file)
