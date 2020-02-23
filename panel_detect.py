@@ -14,7 +14,7 @@ def image_detect(pic_path):
     pb_file = "yolo/yolo.pb"
     image_path = pic_path
     # image_path = "/home/liqin/Pictures/60p52.png"
-    num_classes = 5
+    num_classes = 3
     input_size = 608
     graph = tf.Graph()
 
@@ -59,9 +59,9 @@ def image_detect(pic_path):
     #                             pred_lbbox], axis=0)
 
     # print pred_bbox
-    bboxes = utils.postprocess_boxes(pred_bbox, original_image_size, input_size, 0.4)
+    bboxes = utils.postprocess_boxes(pred_bbox, original_image_size, input_size, 0.3)
     # print("detected ", len(bboxes), "object!!")
-    bboxes = utils.nms(bboxes, 0.6, method='nms')
+    bboxes = utils.nms(bboxes, 0.4, method='nms')
     image, bboxes= utils.draw_bbox(original_image, bboxes)
     # image = Image.fromarray(image)
     # image = cv2.resize(image, (int(image.shape[0] / 5), int(image.shape[1] / 5)))
@@ -106,14 +106,14 @@ def conv_box_text(bboxes):
     a = []
     text_matrix = []
     for id, item in enumerate(sort_box):
-        # if item[5] == 2:
-        #     a.append('light_red')
+        if item[5] == 1 or item[5]== 0:
+            a.append(int(item[5]))
         # elif item[5] == 3:
         #     a.append('light_off')
         # elif item[5] == 4:
         #     a.append('light_green')
-        # else:
-        a.append(int(item[5]))
+        else:
+            a.append(item[5])
         if id < len(sort_box) - 1 and sort_box[id + 1][0] < item[0]:
             text_matrix.append(a)
             a = []

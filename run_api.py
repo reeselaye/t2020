@@ -29,7 +29,7 @@ API:detected(image_path):
 """
 
 def panel_r():
-    img_file = "img_qrcode/73p100.jpg"
+    img_file = "img_qrcode/15.jpg"
     label_out, sorted_box = panel_detect.detected(img_file)
     print(sorted_box)
     print("排序后识别结果", label_out)
@@ -46,14 +46,14 @@ def panel_r():
 def joint_img():
     saved_path = image_joint.stich_image_api(
         ["img_pano/q1.jpg", "img_pano/q2.jpg", "img_pano/q3.jpg"],
-        "img_pano/pano.jpg")
+        "img_pano/pano1.jpg")
 
     print("拼接后图像保存于：", os.getcwd(), "/",saved_path)
 
 def main():
     qrcode_r()
     panel_r()
-    joint_img()
+    # joint_img()
 
 
 if __name__ == '__main__':
