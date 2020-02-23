@@ -18,7 +18,7 @@
     @:param image_path:待识别图片路径
     @:returns :
     @ sorted_lable :排序后的标签输出 [[0,1,0,1,..],[0,1..],[]]
-    @ sorted_box:  排序后方框输出 [x_min, y_min, x_max, y_max, possibel,class_id] [421.0, 452,2, 890.0, 870.0, 0.82, 1.0]
+    @ sorted_box:  排序后方框输出 [x_min, y_min, x_max, y_max, possibel,class_id] [421.0, 452,2, 890.0, 870.0, 0.82, 1.0]    
     
     拼接
     @ 文件： joint/image_joint.py
